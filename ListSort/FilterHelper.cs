@@ -10,7 +10,9 @@ namespace ListSort
 {
     public enum SortOrder { Ascending, Descending };
 
-    public enum FilterType { Contains, DoesNotContain, StartsWith, DoesNotStartWith, Is, IsNot, IsBlank, IsNotBlank };
+    public enum StringFilterType { Contains, DoesNotContain, StartsWith, DoesNotStartWith, Is, IsNot, IsBlank, IsNotBlank };
+    public enum DateTimeFilterType { Is, IsNot, IsAfter, IsOnOrAfter, IsBefore, IsOnOrBefore, IsBlank, IsNotBlank };
+    public enum DoubleFilterType { Is, IsNot, IsAfter, IsOnOrAfter, IsBefore, IsOnOrBefore, IsBlank, IsNotBlank };
     public static class EnumExtensionMethods
     {
         public static string GetString(this SortOrder order)
@@ -22,7 +24,7 @@ namespace ListSort
                 _ => "error",
             };
         }
-        public static string GetString(this FilterType type)
+        public static string GetString(this StringFilterType type)
         {
             return type switch
             {
@@ -45,34 +47,34 @@ namespace ListSort
 
         }
 
-        public static List<T> GenericFilter(List<T> listToFilter, string propertyToFilter, string filterValue, FilterType filter)
+        public static List<T> GenericStringFilter(List<T> listToFilter, string propertyToFilter, StringFilterType filter, string filterValue)
         {
            
             string query = "";
             switch (filter)
             {
-                case FilterType.Contains:
+                case StringFilterType.Contains:
                     query = String.Format("t=>t.{0}.Contains(\"{1}\")", propertyToFilter, filterValue);
                     break;
-                case FilterType.DoesNotContain:
+                case StringFilterType.DoesNotContain:
                     query = String.Format("t=>!t.{0}.Contains(\"{1}\")", propertyToFilter, filterValue);
                     break;
-                case FilterType.DoesNotStartWith:
+                case StringFilterType.DoesNotStartWith:
                     query = String.Format("t=>!t.{0}.StartsWith(\"{1}\")", propertyToFilter, filterValue);
                     break;
-                case FilterType.Is:
+                case StringFilterType.Is:
                     query = String.Format("t=>t.{0} == \"{1}\"", propertyToFilter, filterValue);
                     break;
-                case FilterType.IsBlank:
+                case StringFilterType.IsBlank:
                     query = String.Format("t=>String.IsNullOrEmpty(t.{0})", propertyToFilter);
                     break;
-                case FilterType.IsNot:
+                case StringFilterType.IsNot:
                     query = String.Format("t=>t.{0} != \"{1}\"", propertyToFilter, filterValue);
                     break;
-                case FilterType.IsNotBlank:
+                case StringFilterType.IsNotBlank:
                     query = String.Format("t=>!String.IsNullOrEmpty(t.{0})", propertyToFilter);
                     break;
-                case FilterType.StartsWith:
+                case StringFilterType.StartsWith:
                     query = String.Format("t=>t.{0}.StartsWith(\"{1}\")", propertyToFilter, filterValue);
                     break;
                 default:

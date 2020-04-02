@@ -72,6 +72,9 @@ namespace ListSort
             MemberExpression memberExpression = (MemberExpression)propertyToFilter.Body;
             string memberName = memberExpression.Member.Name;
 
+            if (filterValue == null) //If value to check is null then show all non null valuesw
+                filter = VersionFilter.IsNotBlank;
+
             //Sort through null/not null first to prevent later errors
             IEnumerable<TModel> nullVersions = enumerable.AsQueryable().Where($"t=>t.{memberName} == null");
             IEnumerable<TModel> validVersions = enumerable.AsQueryable().Where($"t=>t.{memberName} != null");

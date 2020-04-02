@@ -74,7 +74,7 @@ namespace ListSort
             var filteredList66786 = thingList.AdvancedFilter((t => t.version), VersionFilter.IsEarlier, thingList[1].version);
             var filteredList66676 = thingList.AdvancedFilter((t => t.version), VersionFilter.IsEarlierMajorVersion, thingList[0].version);
             var filteredList666766 = thingList.AdvancedFilter((t => t.version), VersionFilter.IsLater, thingList[0].version);
-            var filteredList66166 = thingList.AdvancedFilter((t => t.version), VersionFilter.IsLaterMajorVersion, thingList[0].version);
+            var filteredList66166 = thingList.AdvancedFilter((t => t.version), VersionFilter.IsLaterMajorVersion, null);
             var filteredList645666 = thingList.AdvancedFilter((t => t.version), VersionFilter.IsSameMajorVersion, new Version("1.2"));
             var filteredList664566 = thingList.AdvancedFilter((t => t.version), VersionFilter.IsNot, new Version("15.32.3"));
             var filteredList64666 = thingList.AdvancedFilter((t => t.version), VersionFilter.IsNotBlank, null);

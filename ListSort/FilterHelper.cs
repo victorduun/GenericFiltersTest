@@ -39,15 +39,14 @@ namespace ListSort
 
     public static class ListFilterExtensions
     {
-        public static IEnumerable<TModel> AdvancedFilter<TModel, TProperty>(
+        public static IEnumerable<TModel> AdvancedFilter<TModel>(
             this IEnumerable<TModel> enumerable, 
-            Expression<Func<TModel, TProperty>> propertyToFilter, 
+            Expression<Func<TModel, string>> propertyToFilter, 
             StringFilter filter, 
             string filterValue)
         {
             MemberExpression memberExpression = (MemberExpression)propertyToFilter.Body;
             string memberName = memberExpression.Member.Name;
-
 
             string query = filter switch
             {
@@ -64,9 +63,9 @@ namespace ListSort
             return enumerable.AsQueryable().Where(query).ToList();
         }
 
-        public static IEnumerable<TModel> AdvancedFilter<TModel, TProperty>(
+        public static IEnumerable<TModel> AdvancedFilter<TModel>(
             this IEnumerable<TModel> enumerable,
-            Expression<Func<TModel, TProperty>> propertyToFilter,
+            Expression<Func<TModel, Version>> propertyToFilter,
             VersionFilter filter,
             Version filterValue)
         {
